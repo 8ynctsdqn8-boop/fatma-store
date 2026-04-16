@@ -7,42 +7,27 @@
 
 <style>
 
-:root{
---main:#6A11CB;
---second:#2575FC;
---price:#E74C3C;
---bg:#F5F7FB;
---green:#25D366;
-}
-
 body{
 margin:0;
 font-family:Arial;
-background:var(--bg);
+background:#f5f7fb;
 }
 
-/* الهيدر */
 .header{
-background:linear-gradient(135deg,var(--main),var(--second));
+background:linear-gradient(135deg,#6A11CB,#2575FC);
 color:white;
 text-align:center;
 padding:20px;
-position:sticky;
-top:0;
-}
-
-.cart-btn{
-position:absolute;
-left:15px;
-top:15px;
-background:white;
-padding:8px 12px;
-border-radius:20px;
-cursor:pointer;
+font-size:22px;
 font-weight:bold;
 }
 
-/* الكتالوج */
+.title{
+text-align:center;
+margin:20px 0 0;
+font-size:18px;
+}
+
 .container{
 max-width:1000px;
 margin:auto;
@@ -52,7 +37,6 @@ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:15px;
 }
 
-/* الكارت */
 .card{
 background:white;
 border-radius:15px;
@@ -62,85 +46,67 @@ transition:0.3s;
 }
 
 .card:hover{
-transform:translateY(-5px);
+transform:scale(1.03);
 }
 
-/* الصور موحدة وفخمة */
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
-filter:saturate(0.85) contrast(1.05) brightness(0.95);
-transition:0.4s;
 }
 
-.card:hover img{
-transform:scale(1.05);
-filter:saturate(1.1) contrast(1.1) brightness(1);
-}
-
-/* النصوص */
 .card h2{
-font-size:17px;
 margin:10px;
+font-size:16px;
 }
 
 .price{
-color:var(--price);
+color:#E74C3C;
 font-weight:bold;
 margin:0 10px;
 }
 
-/* زر */
 .btn{
 display:block;
-text-align:center;
-background:var(--second);
-color:white;
-padding:10px;
 margin:10px;
-border-radius:10px;
+padding:10px;
+background:#25D366;
+color:white;
 border:none;
+border-radius:10px;
 cursor:pointer;
+font-weight:bold;
 }
 
-.whatsapp{
-background:var(--green);
-}
-
-/* السلة */
-.cart-box{
+/* الفورم */
+#formBox{
 display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.5);
+background:rgba(0,0,0,0.6);
 }
 
-.cart-content{
+.form-content{
 background:white;
-width:90%;
-max-width:420px;
-margin:40px auto;
-padding:15px;
+max-width:350px;
+margin:80px auto;
+padding:20px;
 border-radius:10px;
 }
 
-.cart-item{
-display:flex;
-justify-content:space-between;
-margin:6px 0;
-border-bottom:1px solid #eee;
-padding:5px;
+.form-content input{
+width:100%;
+padding:10px;
+margin:5px 0;
 }
 
-.remove{
-color:red;
-cursor:pointer;
-}
-
-.title{
-text-align:center;
-margin:20px 0 0 0;
+.close-btn{
+background:red;
+color:white;
+padding:10px;
+border:none;
+width:100%;
+border-radius:10px;
 }
 
 </style>
@@ -149,36 +115,35 @@ margin:20px 0 0 0;
 <body>
 
 <div class="header">
-<h1>🛏️ فاطمة الزهراء للمفروشات</h1>
-<div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
+🛏️ فاطمة الزهراء للمفروشات
 </div>
 
-<h2 class="title">🧺 كتالوج المفروشات</h2>
+<div class="title">🧺 أطقم ملايات وسراير</div>
 
 <div class="container">
 
 <!-- 1 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800">
-<h2>طقم عرايس أبيض</h2>
-<p class="price">750 جنيه</p>
-<button class="btn" onclick="add('أبيض - 750')">أضف</button>
+<h2>طقم ملاية قطني</h2>
+<p class="price">550 جنيه</p>
+<button class="btn" onclick="openForm('طقم ملاية قطني - 550')">اطلب الآن</button>
 </div>
 
 <!-- 2 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=800">
-<h2>طقم بيج ناعم</h2>
+<h2>طقم ملاية بيج ناعم</h2>
 <p class="price">700 جنيه</p>
-<button class="btn" onclick="add('بيج - 700')">أضف</button>
+<button class="btn" onclick="openForm('طقم ملاية بيج - 700')">اطلب الآن</button>
 </div>
 
 <!-- 3 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1505691723518-36a5ac3b2d5a?auto=format&fit=crop&w=800">
-<h2>طقم فاخر ملكي</h2>
+<h2>طقم ملاية فاخر</h2>
 <p class="price">900 جنيه</p>
-<button class="btn" onclick="add('فاخر - 900')">أضف</button>
+<button class="btn" onclick="openForm('طقم فاخر - 900')">اطلب الآن</button>
 </div>
 
 <!-- 4 -->
@@ -186,83 +151,86 @@ margin:20px 0 0 0;
 <img src="https://images.unsplash.com/photo-1582582429416-6a5c7b3c2c8f?auto=format&fit=crop&w=800">
 <h2>طقم أطفال ملون</h2>
 <p class="price">500 جنيه</p>
-<button class="btn" onclick="add('أطفال - 500')">أضف</button>
+<button class="btn" onclick="openForm('طقم أطفال - 500')">اطلب الآن</button>
 </div>
 
 <!-- 5 -->
 <div class="card">
-<img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=800">
-<h2>طقم وردي ناعم</h2>
+<img src="https://images.unsplash.com/photo-1616627984385-5f8f7f6a4c8f?auto=format&fit=crop&w=800">
+<h2>طقم سرير عرايس أبيض</h2>
+<p class="price">850 جنيه</p>
+<button class="btn" onclick="openForm('طقم سرير عرايس - 850')">اطلب الآن</button>
+</div>
+
+<!-- 6 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800">
+<h2>طقم سرير رمادي شيك</h2>
+<p class="price">800 جنيه</p>
+<button class="btn" onclick="openForm('طقم سرير رمادي - 800')">اطلب الآن</button>
+</div>
+
+<!-- 7 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800">
+<h2>طقم سرير مودرن</h2>
+<p class="price">780 جنيه</p>
+<button class="btn" onclick="openForm('طقم سرير مودرن - 780')">اطلب الآن</button>
+</div>
+
+<!-- 8 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1567016545648-0f8b7c7d1b8c?auto=format&fit=crop&w=800">
+<h2>طقم ملاية وردي</h2>
 <p class="price">650 جنيه</p>
-<button class="btn" onclick="add('وردي - 650')">أضف</button>
+<button class="btn" onclick="openForm('طقم ملاية وردي - 650')">اطلب الآن</button>
 </div>
 
 </div>
 
-<!-- السلة -->
-<div class="cart-box" id="cartBox">
-<div class="cart-content">
+<!-- الفورم -->
+<div id="formBox">
+<div class="form-content">
 
-<h3>🛒 السلة</h3>
-<div id="cartList"></div>
+<h3>🛍️ إتمام الطلب</h3>
 
-<button class="btn whatsapp" onclick="order()">واتساب</button>
-<button class="btn" onclick="clearCart()" style="background:red;">تفريغ</button>
-<button class="btn" onclick="toggleCart()" style="background:#333;">إغلاق</button>
+<input id="name" placeholder="الاسم">
+<input id="phone" placeholder="رقم الهاتف">
+<input id="address" placeholder="العنوان">
+
+<button class="btn" onclick="sendOrder()">إرسال واتساب</button>
+<button class="close-btn" onclick="closeForm()">إغلاق</button>
 
 </div>
 </div>
 
 <script>
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let selectedProduct = "";
 
-function add(item){
-cart.push(item);
-localStorage.setItem("cart", JSON.stringify(cart));
-render();
-alert("تمت الإضافة ✔️");
+function openForm(product){
+selectedProduct = product;
+document.getElementById("formBox").style.display="block";
 }
 
-function render(){
-document.getElementById("count").innerText = cart.length;
-
-let box=document.getElementById("cartList");
-box.innerHTML="";
-
-cart.forEach((i,index)=>{
-box.innerHTML+=`
-<div class="cart-item">
-<span>${i}</span>
-<span class="remove" onclick="removeItem(${index})">❌</span>
-</div>`;
-});
+function closeForm(){
+document.getElementById("formBox").style.display="none";
 }
 
-function removeItem(i){
-cart.splice(i,1);
-localStorage.setItem("cart", JSON.stringify(cart));
-render();
-}
+function sendOrder(){
+let name = document.getElementById("name").value;
+let phone = document.getElementById("phone").value;
+let address = document.getElementById("address").value;
 
-function toggleCart(){
-let box=document.getElementById("cartBox");
-box.style.display = box.style.display==="block"?"none":"block";
-render();
-}
+let message =
+"🛍️ طلب جديد%0A%0A" +
+"👤 الاسم: " + name + "%0A" +
+"📞 الرقم: " + phone + "%0A" +
+"📍 العنوان: " + address + "%0A" +
+"📦 المنتج: " + selectedProduct;
 
-function clearCart(){
-cart=[];
-localStorage.setItem("cart", JSON.stringify(cart));
-render();
+window.open("https://wa.me/201224537445?text=" + message, "_blank");
 }
-
-function order(){
-let msg="طلب جديد:%0A"+cart.join("%0A");
-window.open("https://wa.me/201224537445?text="+msg);
-}
-
-render();
 
 </script>
 
