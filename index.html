@@ -6,31 +6,55 @@
 <title>فاطمة الزهراء للمفروشات</title>
 
 <style>
+:root{
+--main:#6A11CB;
+--second:#2575FC;
+--bg:#F5F7FB;
+--price:#E74C3C;
+--green:#25D366;
+}
+
 body{
-font-family: Arial;
-background:#f4f6f8;
 margin:0;
+font-family:Arial;
+background:var(--bg);
 }
 
 .header{
-background:linear-gradient(135deg,#667eea,#764ba2);
+background:linear-gradient(135deg,var(--main),var(--second));
 color:white;
 text-align:center;
-padding:25px;
+padding:20px;
+position:sticky;
+top:0;
+}
+
+.cart-btn{
+position:absolute;
+left:15px;
+top:15px;
+background:white;
+color:black;
+padding:8px 12px;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
 }
 
 .container{
 max-width:1000px;
 margin:auto;
 padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
 }
 
 .card{
 background:white;
-padding:15px;
-margin:15px 0;
 border-radius:15px;
-box-shadow:0 8px 20px rgba(0,0,0,0.1);
+overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 transition:0.3s;
 }
 
@@ -40,25 +64,77 @@ transform:translateY(-5px);
 
 .card img{
 width:100%;
-border-radius:10px;
-margin-bottom:10px;
+height:200px;
+object-fit:cover;
+}
+
+.card h2{
+font-size:18px;
+margin:10px;
 }
 
 .price{
-color:#e74c3c;
-font-size:20px;
+color:var(--price);
 font-weight:bold;
-margin:10px 0;
+margin:0 10px;
 }
 
-a{
+.btn{
 display:block;
-background:linear-gradient(135deg,#25D366,#128C7E);
-color:white;
 text-align:center;
-padding:12px;
+background:var(--second);
+color:white;
+padding:10px;
+margin:10px;
 border-radius:10px;
-text-decoration:none;
+border:none;
+cursor:pointer;
+}
+
+.whatsapp{
+background:var(--green);
+}
+
+/* السلة */
+.cart-box{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+}
+
+.cart-content{
+background:white;
+width:90%;
+max-width:420px;
+margin:40px auto;
+padding:15px;
+border-radius:10px;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin:6px 0;
+border-bottom:1px solid #eee;
+padding:5px;
+}
+
+.remove{
+color:red;
+cursor:pointer;
+}
+
+details{
+background:white;
+margin:10px auto;
+padding:10px;
+border-radius:10px;
+max-width:800px;
+}
+
+summary{
+cursor:pointer;
 font-weight:bold;
 }
 </style>
@@ -68,40 +144,119 @@ font-weight:bold;
 
 <div class="header">
 <h1>🛏️ فاطمة الزهراء للمفروشات</h1>
-<p>أجمل مفروشات بجودة عالية وأسعار مناسبة 💙</p>
+<div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </div>
 
+<!-- المنتجات -->
 <div class="container">
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7">
-<h2>مفرش قطني كينج فاخر</h2>
+<h2>ملاية قطني كينج</h2>
 <p class="price">499 جنيه</p>
-<a href="https://wa.me/201224537445" target="_blank">اطلب على واتساب 💬</a>
+<button class="btn" onclick="add('ملاية قطني كينج - 499')">أضف للسلة</button>
 </div>
 
 <div class="card">
 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
-<h2>مفرش حرير كوين فاخر</h2>
+<h2>ملاية حرير كوين</h2>
 <p class="price">799 جنيه</p>
-<a href="https://wa.me/201224537445" target="_blank">اطلب على واتساب 💬</a>
+<button class="btn" onclick="add('ملاية حرير كوين - 799')">أضف للسلة</button>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1612872087724-bb876a7513e1">
-<h2>مفرش مطبوع مزدوج</h2>
-<p class="price">349 جنيه</p>
-<a href="https://wa.me/201224537445" target="_blank">اطلب على واتساب 💬</a>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1574169208507-84376144848b">
-<h2>مفرش بامبو عضوي</h2>
-<p class="price">299 جنيه</p>
-<a href="https://wa.me/201224537445" target="_blank">اطلب على واتساب 💬</a>
+<img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed">
+<h2>مفرش فاخر</h2>
+<p class="price">899 جنيه</p>
+<button class="btn" onclick="add('مفرش فاخر - 899')">أضف للسلة</button>
 </div>
 
 </div>
+
+<!-- الأسئلة -->
+<h2 style="text-align:center;">❓ أسئلة شائعة</h2>
+
+<details>
+<summary>إزاي أطلب؟</summary>
+<p>ضيفي المنتج للسلة وبعدين ابعتي الطلب على واتساب.</p>
+</details>
+
+<details>
+<summary>الدفع إزاي؟</summary>
+<p>الدفع عند الاستلام.</p>
+</details>
+
+<details>
+<summary>التوصيل قد إيه؟</summary>
+<p>من 2 لـ 5 أيام.</p>
+</details>
+
+<!-- السلة -->
+<div class="cart-box" id="cartBox">
+<div class="cart-content">
+
+<h3>🛒 سلة المشتريات</h3>
+<div id="cartList"></div>
+
+<button class="btn whatsapp" onclick="order()">إرسال الطلب 💬</button>
+<button class="btn" onclick="clearCart()" style="background:red;">تفريغ</button>
+<button class="btn" onclick="toggleCart()" style="background:#333;">إغلاق</button>
+
+</div>
+</div>
+
+<script>
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function add(item){
+cart.push(item);
+localStorage.setItem("cart", JSON.stringify(cart));
+render();
+alert("تمت الإضافة ✔️");
+}
+
+function render(){
+document.getElementById("count").innerText = cart.length;
+
+let box = document.getElementById("cartList");
+box.innerHTML="";
+
+cart.forEach((i,index)=>{
+box.innerHTML += `
+<div class="cart-item">
+<span>${i}</span>
+<span class="remove" onclick="removeItem(${index})">❌</span>
+</div>`;
+});
+}
+
+function removeItem(i){
+cart.splice(i,1);
+localStorage.setItem("cart", JSON.stringify(cart));
+render();
+}
+
+function toggleCart(){
+let box = document.getElementById("cartBox");
+box.style.display = (box.style.display==="block") ? "none" : "block";
+render();
+}
+
+function clearCart(){
+cart=[];
+localStorage.setItem("cart", JSON.stringify(cart));
+render();
+}
+
+function order(){
+let msg = "طلب جديد:%0A" + cart.join("%0A");
+window.open("https://wa.me/201224537445?text="+msg);
+}
+
+render();
+
+</script>
 
 </body>
 </html>
