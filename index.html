@@ -1,4 +1,4 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -81,7 +81,6 @@ font-weight:bold;
 margin:0 10px;
 }
 
-/* الأزرار */
 .btn{
 display:block;
 text-align:center;
@@ -128,7 +127,6 @@ color:red;
 cursor:pointer;
 }
 
-/* عنوان */
 .title{
 text-align:center;
 margin:20px 0 0 0;
@@ -138,55 +136,120 @@ margin:20px 0 0 0;
 
 <body>
 
-<!-- الهيدر -->
 <div class="header">
 <h1>🛏️ فاطمة الزهراء للمفروشات</h1>
 <div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </div>
 
-<h2 class="title">🧺 أطقم مفروشات كاملة</h2>
+<h2 class="title">🧺 كتالوج المفروشات</h2>
 
-<!-- المنتجات -->
 <div class="container">
 
+<!-- 1 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800">
 <h2>طقم ملاية قطني ساده</h2>
 <p class="price">550 جنيه</p>
-<button class="btn" onclick="add('طقم ملاية قطني ساده - 550')">أضف للسلة</button>
+<button class="btn" onclick="add('قطني ساده - 550')">أضف للسلة</button>
 </div>
 
+<!-- 2 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800">
-<h2>طقم ملاية أزرق هادي</h2>
+<h2>طقم أزرق هادي</h2>
 <p class="price">700 جنيه</p>
-<button class="btn" onclick="add('طقم ملاية أزرق هادي - 700')">أضف للسلة</button>
+<button class="btn" onclick="add('أزرق - 700')">أضف للسلة</button>
 </div>
 
+<!-- 3 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=800">
-<h2>طقم ملاية مطبوع وردي</h2>
+<h2>طقم وردي مطبوع</h2>
 <p class="price">650 جنيه</p>
-<button class="btn" onclick="add('طقم ملاية مطبوع وردي - 650')">أضف للسلة</button>
+<button class="btn" onclick="add('وردي - 650')">أضف للسلة</button>
 </div>
 
+<!-- 4 -->
 <div class="card">
 <img src="https://images.unsplash.com/photo-1574169208507-84376144848b?auto=format&fit=crop&w=800">
-<h2>طقم ملاية عرايس أنيق</h2>
+<h2>طقم عرايس أنيق</h2>
 <p class="price">850 جنيه</p>
-<button class="btn" onclick="add('طقم ملاية عرايس أنيق - 850')">أضف للسلة</button>
+<button class="btn" onclick="add('عرايس - 850')">أضف للسلة</button>
+</div>
+
+<!-- 5 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=800">
+<h2>طقم بيج ناعم</h2>
+<p class="price">700 جنيه</p>
+<button class="btn" onclick="add('بيج - 700')">أضف للسلة</button>
+</div>
+
+<!-- 6 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800">
+<h2>طقم رمادي شيك</h2>
+<p class="price">720 جنيه</p>
+<button class="btn" onclick="add('رمادي - 720')">أضف للسلة</button>
+</div>
+
+<!-- 7 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1505691723518-36a5ac3b2d5a?auto=format&fit=crop&w=800">
+<h2>طقم فاخر ملكي</h2>
+<p class="price">900 جنيه</p>
+<button class="btn" onclick="add('فاخر - 900')">أضف للسلة</button>
+</div>
+
+<!-- 8 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=800">
+<h2>عرض خاص</h2>
+<p class="price">450 جنيه</p>
+<button class="btn" onclick="add('عرض - 450')">أضف للسلة</button>
+</div>
+
+<!-- 9 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1582582429416-6a5c7b3c2c8f?auto=format&fit=crop&w=800">
+<h2>أطفال ملون</h2>
+<p class="price">500 جنيه</p>
+<button class="btn" onclick="add('أطفال - 500')">أضف للسلة</button>
+</div>
+
+<!-- 10 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1616627984385-5f8f7f6a4c8f?auto=format&fit=crop&w=800">
+<h2>أطفال ناعم</h2>
+<p class="price">480 جنيه</p>
+<button class="btn" onclick="add('أطفال - 480')">أضف للسلة</button>
+</div>
+
+<!-- 11 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1578898887929-1c2c0d9a1c1d?auto=format&fit=crop&w=800">
+<h2>عرايس زهري</h2>
+<p class="price">800 جنيه</p>
+<button class="btn" onclick="add('زهري - 800')">أضف للسلة</button>
+</div>
+
+<!-- 12 -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=800">
+<h2>ستايل مودرن</h2>
+<p class="price">780 جنيه</p>
+<button class="btn" onclick="add('مودرن - 780')">أضف للسلة</button>
 </div>
 
 </div>
 
-<!-- السلة -->
 <div class="cart-box" id="cartBox">
 <div class="cart-content">
 
 <h3>🛒 سلة المشتريات</h3>
 <div id="cartList"></div>
 
-<button class="btn whatsapp" onclick="order()">إرسال الطلب 💬</button>
+<button class="btn whatsapp" onclick="order()">إرسال واتساب</button>
 <button class="btn" onclick="clearCart()" style="background:red;">تفريغ</button>
 <button class="btn" onclick="toggleCart()" style="background:#333;">إغلاق</button>
 
