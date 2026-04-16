@@ -20,6 +20,7 @@ font-family:Arial;
 background:var(--bg);
 }
 
+/* الهيدر */
 .header{
 background:linear-gradient(135deg,var(--main),var(--second));
 color:white;
@@ -41,6 +42,7 @@ cursor:pointer;
 font-weight:bold;
 }
 
+/* المنتجات */
 .container{
 max-width:1000px;
 margin:auto;
@@ -79,6 +81,7 @@ font-weight:bold;
 margin:0 10px;
 }
 
+/* الأزرار */
 .btn{
 display:block;
 text-align:center;
@@ -125,71 +128,56 @@ color:red;
 cursor:pointer;
 }
 
-details{
-background:white;
-margin:10px auto;
-padding:10px;
-border-radius:10px;
-max-width:800px;
-}
-
-summary{
-cursor:pointer;
-font-weight:bold;
+/* عنوان */
+.title{
+text-align:center;
+margin:20px 0 0 0;
 }
 </style>
 </head>
 
 <body>
 
+<!-- الهيدر -->
 <div class="header">
 <h1>🛏️ فاطمة الزهراء للمفروشات</h1>
 <div class="cart-btn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </div>
 
+<h2 class="title">🧺 أطقم مفروشات كاملة</h2>
+
 <!-- المنتجات -->
 <div class="container">
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7">
-<h2>ملاية قطني كينج</h2>
-<p class="price">499 جنيه</p>
-<button class="btn" onclick="add('ملاية قطني كينج - 499')">أضف للسلة</button>
+<img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800">
+<h2>طقم ملاية قطني ساده</h2>
+<p class="price">550 جنيه</p>
+<button class="btn" onclick="add('طقم ملاية قطني ساده - 550')">أضف للسلة</button>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
-<h2>ملاية حرير كوين</h2>
-<p class="price">799 جنيه</p>
-<button class="btn" onclick="add('ملاية حرير كوين - 799')">أضف للسلة</button>
+<img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800">
+<h2>طقم ملاية أزرق هادي</h2>
+<p class="price">700 جنيه</p>
+<button class="btn" onclick="add('طقم ملاية أزرق هادي - 700')">أضف للسلة</button>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed">
-<h2>مفرش فاخر</h2>
-<p class="price">899 جنيه</p>
-<button class="btn" onclick="add('مفرش فاخر - 899')">أضف للسلة</button>
+<img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?auto=format&fit=crop&w=800">
+<h2>طقم ملاية مطبوع وردي</h2>
+<p class="price">650 جنيه</p>
+<button class="btn" onclick="add('طقم ملاية مطبوع وردي - 650')">أضف للسلة</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1574169208507-84376144848b?auto=format&fit=crop&w=800">
+<h2>طقم ملاية عرايس أنيق</h2>
+<p class="price">850 جنيه</p>
+<button class="btn" onclick="add('طقم ملاية عرايس أنيق - 850')">أضف للسلة</button>
 </div>
 
 </div>
-
-<!-- الأسئلة -->
-<h2 style="text-align:center;">❓ أسئلة شائعة</h2>
-
-<details>
-<summary>إزاي أطلب؟</summary>
-<p>ضيفي المنتج للسلة وبعدين ابعتي الطلب على واتساب.</p>
-</details>
-
-<details>
-<summary>الدفع إزاي؟</summary>
-<p>الدفع عند الاستلام.</p>
-</details>
-
-<details>
-<summary>التوصيل قد إيه؟</summary>
-<p>من 2 لـ 5 أيام.</p>
-</details>
 
 <!-- السلة -->
 <div class="cart-box" id="cartBox">
