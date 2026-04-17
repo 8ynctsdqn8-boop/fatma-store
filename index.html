@@ -2,53 +2,58 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Elegant Store</title>
+<title>Furniture Store</title>
 
 <style>
 body{
     margin:0;
     font-family: Arial;
     direction: rtl;
-    background: linear-gradient(135deg,#f7f7f7,#ffffff);
+    background:#f8f8f8;
 }
 
-/* هيدر ناعم */
+/* هيدر */
 .header{
     position:sticky;
     top:0;
-    background:rgba(255,255,255,0.8);
-    backdrop-filter:blur(10px);
+    background:white;
+    padding:15px;
     display:flex;
     justify-content:space-between;
-    padding:15px;
     box-shadow:0 2px 10px rgba(0,0,0,0.05);
     z-index:10;
 }
 
-/* layout مريح */
-.container{
-    padding:20px;
+/* عداد السلة */
+.cartCount{
+    background:black;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
 }
 
-/* منتجات بشكل كارد حديث */
-.products{
+/* عنوان */
+.title{
+    padding:15px;
+    font-size:18px;
+}
+
+/* 🔥 سكرول أفقي */
+.scroll{
     display:flex;
-    flex-wrap:wrap;
+    overflow-x:auto;
     gap:15px;
-    justify-content:center;
+    padding:15px;
+    scroll-snap-type:x mandatory;
 }
 
 .card{
-    width:260px;
+    min-width:260px;
     background:white;
-    border-radius:18px;
+    border-radius:15px;
     overflow:hidden;
-    box-shadow:0 10px 20px rgba(0,0,0,0.08);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    scroll-snap-align:center;
 }
 
 .card img{
@@ -57,42 +62,38 @@ body{
     object-fit:cover;
 }
 
-/* معلومات */
 .info{
     padding:10px;
 }
 
 .price{
+    color:green;
     font-weight:bold;
-    color:#0a7a3d;
-    font-size:16px;
 }
 
 /* زر */
 button{
     width:100%;
     padding:12px;
-    border:0;
-    background:linear-gradient(135deg,#111,#333);
+    background:#111;
     color:white;
-    cursor:pointer;
-    font-size:14px;
+    border:0;
 }
 
-/* سلة */
-.cart{
+/* السلة */
+.cartBox{
     position:fixed;
     left:15px;
-    top:70px;
+    bottom:15px;
     background:white;
     padding:10px 15px;
-    border-radius:30px;
+    border-radius:20px;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
     cursor:pointer;
 }
 
 /* سلة جانبية */
-.cartBox{
+.sideCart{
     position:fixed;
     left:-350px;
     top:0;
@@ -105,7 +106,7 @@ button{
     overflow:auto;
 }
 
-.cartBox.open{
+.sideCart.open{
     left:0;
 }
 
@@ -115,22 +116,13 @@ button{
     font-size:14px;
 }
 
-/* طلب */
-input{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
-    border:1px solid #ddd;
-    border-radius:10px;
-}
-
+/* زر طلب */
 .orderBtn{
     width:100%;
     padding:12px;
     background:#25D366;
     color:white;
     border:0;
-    border-radius:10px;
     margin-top:10px;
 }
 </style>
@@ -139,31 +131,22 @@ input{
 <body>
 
 <div class="header">
-<div>🛍️ Elegant Store</div>
-<div onclick="toggleCart()">🛒 <span id="count">0</span></div>
+<div>🛍️ Furniture Store</div>
+<div class="cartCount" onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </div>
 
-<div class="cart">السلة</div>
+<div class="title">✨ أفضل منتجات المفروشات</div>
 
-<div class="container">
-
-<div class="products" id="products"></div>
-
-</div>
+<!-- 🔥 سكرول أفقي -->
+<div class="scroll" id="products"></div>
 
 <!-- السلة -->
-<div class="cartBox" id="cartBox">
+<div class="sideCart" id="cart">
 
 <h3>🛒 السلة</h3>
 <div id="items"></div>
 
-<h3>📦 بيانات الطلب</h3>
-
-<input id="name" placeholder="الاسم">
-<input id="phone" placeholder="الرقم">
-<input id="address" placeholder="العنوان">
-
-<button class="orderBtn" onclick="sendOrder()">📲 اطلب الآن</button>
+<button class="orderBtn" onclick="send()">📲 إرسال الطلب</button>
 
 </div>
 
@@ -171,24 +154,32 @@ input{
 
 let cart = [];
 
-/* منتجات */
+/* 🔥 كل الـ 13 صورة */
 let products = [
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg",price:800},
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg",price:650},
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/5fa57c2d-52c3-4528-b68f-19456893ded0.jpeg",price:780},
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg",price:500}
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/5fa57c2d-52c3-4528-b68f-19456893ded0.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/8bef95ba-3966-4361-878d-9fddb981a4b4.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/9214c5b0-4ef3-420b-afcd-add97dab3c98.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/b0b1ea36-8870-400a-90ad-f375c0f79932.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/b1e5dd1d-2a90-4a00-b6dc-634e9f9afb6c.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/cff98d82-5bbd-4d56-8c10-3951e2bf021b.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/d3efe0b6-b2a7-49ed-a7ff-0de8bef117d0.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/e9056bf0-1793-4c13-9dde-2063fcb5285f.jpeg",
+"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/f5b749ef-6e16-4271-b440-21d275da9aa8.jpeg"
 ];
 
 function render(){
 
     let html="";
 
-    products.forEach((p,i)=>{
+    products.forEach((img,i)=>{
         html += `
         <div class="card">
-        <img src="${p.img}">
+        <img src="${img}">
         <div class="info">
-        <div class="price">${p.price} جنيه</div>
+        <div class="price">منتج رقم ${i+1}</div>
         </div>
         <button onclick="add(${i})">إضافة للسلة</button>
         </div>
@@ -199,39 +190,32 @@ function render(){
 }
 
 function add(i){
-    cart.push(products[i]);
-    update();
+    cart.push(i);
+    document.getElementById("count").innerText = cart.length;
+    updateCart();
 }
 
-function update(){
-
-    document.getElementById("count").innerText = cart.length;
+function updateCart(){
 
     let html="";
 
     cart.forEach((c,i)=>{
-        html += `<div class="item">${i+1}- ${c.price} جنيه</div>`;
+        html += `<div class="item">منتج ${c+1}</div>`;
     });
 
     document.getElementById("items").innerHTML = html;
 }
 
 function toggleCart(){
-    document.getElementById("cartBox").classList.toggle("open");
+    document.getElementById("cart").classList.toggle("open");
 }
 
-function sendOrder(){
-
-    let name=document.getElementById("name").value;
-    let phone=document.getElementById("phone").value;
-    let address=document.getElementById("address").value;
+function send(){
 
     let msg="🛍️ طلب جديد%0A%0A";
 
-    msg+="👤 "+name+"%0A📞 "+phone+"%0A📍 "+address+"%0A%0A";
-
     cart.forEach((c,i)=>{
-        msg+=(i+1)+"- "+c.price+" جنيه%0A";
+        msg += (i+1)+"- منتج رقم "+(c+1)+"%0A";
     });
 
     window.open("https://wa.me/201224537445?text="+encodeURIComponent(msg));
