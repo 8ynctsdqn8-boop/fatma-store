@@ -12,17 +12,16 @@ body{
     background:#f4f4f4;
 }
 
-/* Header */
 .header{
     background:#111;
     color:white;
-    padding:15px;
     text-align:center;
+    padding:15px;
     font-size:22px;
     position:relative;
 }
 
-.cart-count{
+.cart{
     position:absolute;
     left:15px;
     top:15px;
@@ -34,33 +33,8 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:14px;
 }
 
-/* Order info */
-.info{
-    background:white;
-    margin:15px;
-    padding:15px;
-    border-radius:10px;
-    line-height:1.8;
-}
-
-/* Button */
-.btn{
-    display:block;
-    margin:10px 15px;
-    padding:12px;
-    text-align:center;
-    background:#25D366;
-    color:white;
-    border-radius:10px;
-    text-decoration:none;
-    font-size:18px;
-    font-weight:bold;
-}
-
-/* Products */
 .products{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -73,6 +47,7 @@ body{
     border-radius:10px;
     overflow:hidden;
     box-shadow:0 0 8px rgba(0,0,0,0.1);
+    position:relative;
 }
 
 .product img{
@@ -81,101 +56,130 @@ body{
     object-fit:cover;
 }
 
-.product button{
+/* الأسعار */
+.price{
+    padding:8px;
+}
+
+.old{
+    text-decoration:line-through;
+    color:gray;
+    font-size:14px;
+}
+
+.new{
+    color:green;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* الخصم */
+.badge{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:red;
+    color:white;
+    padding:5px 8px;
+    font-size:12px;
+    border-radius:5px;
+}
+
+button{
     width:100%;
     padding:10px;
-    border:none;
+    border:0;
     background:#111;
     color:white;
-    font-size:14px;
     cursor:pointer;
 }
 
-.product button:hover{
-    background:#333;
+.orderBtn{
+    display:block;
+    margin:15px;
+    padding:12px;
+    background:#25D366;
+    color:white;
+    text-align:center;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="header">
 🛍️ Fatma Store
-<div class="cart-count" id="cartCount">0</div>
+<div class="cart" id="cartCount">0</div>
 </div>
 
-<div class="info">
-👤 الاسم: ملك تيمور <br>
-📞 الرقم: 01224537445 <br>
-📍 العنوان: كفر القديم <br>
-📦 المنتج: طقم سرير مودرن - 780
-</div>
-
-<a class="btn" onclick="sendWhats()">
-📲 إرسال الطلب على واتساب
-</a>
+<a class="orderBtn" onclick="sendOrder()">📲 اطلب الآن</a>
 
 <div class="products">
 
+<!-- 1000 -> 800 -->
 <div class="product">
+<div class="badge">خصم 20%</div>
 <img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg">
-<button onclick="add('صورة 1')">أضف للسلة</button>
+<div class="price">
+<div class="old">1000 جنيه</div>
+<div class="new">800 جنيه</div>
+</div>
+<button onclick="add('منتج 1000 → 800')">أضف للسلة</button>
 </div>
 
+<!-- 800 -> 650 -->
 <div class="product">
+<div class="badge">خصم</div>
 <img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg">
-<button onclick="add('صورة 2')">أضف للسلة</button>
+<div class="price">
+<div class="old">800 جنيه</div>
+<div class="new">650 جنيه</div>
+</div>
+<button onclick="add('منتج 800 → 650')">أضف للسلة</button>
 </div>
 
+<!-- 780 -->
 <div class="product">
+<div class="badge">عرض</div>
 <img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/5fa57c2d-52c3-4528-b68f-19456893ded0.jpeg">
-<button onclick="add('صورة 3')">أضف للسلة</button>
+<div class="price">
+<div class="old">900 جنيه</div>
+<div class="new">780 جنيه</div>
+</div>
+<button onclick="add('منتج 900 → 780')">أضف للسلة</button>
 </div>
 
+<!-- 600 -->
 <div class="product">
+<div class="badge">عرض</div>
 <img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg">
-<button onclick="add('صورة 4')">أضف للسلة</button>
+<div class="price">
+<div class="old">600 جنيه</div>
+<div class="new">500 جنيه</div>
+</div>
+<button onclick="add('منتج 600 → 500')">أضف للسلة</button>
 </div>
 
+<!-- 500 -->
 <div class="product">
 <img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/8bef95ba-3966-4361-878d-9fddb981a4b4.jpeg">
-<button onclick="add('صورة 5')">أضف للسلة</button>
+<div class="price">
+<div class="new">500 جنيه</div>
+</div>
+<button onclick="add('منتج 500')">أضف للسلة</button>
 </div>
 
+<!-- 400 -->
 <div class="product">
 <img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/9214c5b0-4ef3-420b-afcd-add97dab3c98.jpeg">
-<button onclick="add('صورة 6')">أضف للسلة</button>
+<div class="price">
+<div class="new">400 جنيه</div>
 </div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/b0b1ea36-8870-400a-90ad-f375c0f79932.jpeg">
-<button onclick="add('صورة 7')">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/b1e5dd1d-2a90-4a00-b6dc-634e9f9afb6c.jpeg">
-<button onclick="add('صورة 8')">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/cff98d82-5bbd-4d56-8c10-3951e2bf021b.jpeg">
-<button onclick="add('صورة 9')">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/d3efe0b6-b2a7-49ed-a7ff-0de8bef117d0.jpeg">
-<button onclick="add('صورة 10')">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/e9056bf0-1793-4c13-9dde-2063fcb5285f.jpeg">
-<button onclick="add('صورة 11')">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/f5b749ef-6e16-4271-b440-21d275da9aa8.jpeg">
-<button onclick="add('صورة 12')">أضف للسلة</button>
+<button onclick="add('منتج 400')">أضف للسلة</button>
 </div>
 
 </div>
@@ -187,24 +191,20 @@ let cart = [];
 function add(item){
     cart.push(item);
     document.getElementById("cartCount").innerText = cart.length;
-    alert("تمت الإضافة للسلة 🛒");
 }
 
-function sendWhats(){
-    let msg = "🛍️ طلب جديد%0A%0A";
-    msg += "👤 الاسم: ملك تيمور%0A";
-    msg += "📞 الرقم: 01224537445%0A";
-    msg += "📍 العنوان: كفر القديم%0A";
-    msg += "📦 المنتجات:%0A";
-
-    cart.forEach((item,i)=>{
-        msg += (i+1) + "- " + item + "%0A";
-    });
+function sendOrder(){
 
     if(cart.length === 0){
         alert("السلة فاضية 🛒");
         return;
     }
+
+    let msg = "🛍️ طلب جديد%0A%0A📦 المنتجات:%0A";
+
+    cart.forEach((item,i)=>{
+        msg += (i+1) + "- " + item + "%0A";
+    });
 
     window.open("https://wa.me/201224537445?text=" + msg);
 }
