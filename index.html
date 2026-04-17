@@ -2,92 +2,110 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Store</title>
+<title>Elegant Store</title>
 
 <style>
 body{
     margin:0;
     font-family: Arial;
     direction: rtl;
-    background:#fff;
+    background: linear-gradient(135deg,#f7f7f7,#ffffff);
 }
 
-/* هيدر بسيط زي SHEIN */
+/* هيدر ناعم */
 .header{
-    background:white;
-    border-bottom:1px solid #eee;
-    padding:12px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
     position:sticky;
     top:0;
+    background:rgba(255,255,255,0.8);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:space-between;
+    padding:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    z-index:10;
 }
 
-/* شبكة منتجات صغيرة */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-    padding:10px;
+/* layout مريح */
+.container{
+    padding:20px;
+}
+
+/* منتجات بشكل كارد حديث */
+.products{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
 }
 
 .card{
+    width:260px;
     background:white;
-    border-radius:8px;
+    border-radius:18px;
     overflow:hidden;
+    box-shadow:0 10px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
 }
 
 .card img{
     width:100%;
-    height:200px;
+    height:260px;
     object-fit:cover;
-    border-radius:8px;
 }
 
-/* السعر */
+/* معلومات */
+.info{
+    padding:10px;
+}
+
 .price{
-    color:#111;
     font-weight:bold;
-    font-size:14px;
-    margin-top:5px;
+    color:#0a7a3d;
+    font-size:16px;
 }
 
-/* زر صغير زي التطبيقات */
+/* زر */
 button{
     width:100%;
-    padding:8px;
+    padding:12px;
     border:0;
-    background:black;
+    background:linear-gradient(135deg,#111,#333);
     color:white;
-    font-size:13px;
-    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
 }
 
 /* سلة */
-.cartBtn{
-    background:black;
-    color:white;
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:13px;
+.cart{
+    position:fixed;
+    left:15px;
+    top:70px;
+    background:white;
+    padding:10px 15px;
+    border-radius:30px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
     cursor:pointer;
 }
 
-.cart{
+/* سلة جانبية */
+.cartBox{
     position:fixed;
-    left:-340px;
+    left:-350px;
     top:0;
-    width:300px;
+    width:320px;
     height:100%;
     background:white;
-    box-shadow:2px 0 10px rgba(0,0,0,0.2);
-    padding:15px;
+    box-shadow:2px 0 15px rgba(0,0,0,0.2);
     transition:0.3s;
+    padding:15px;
     overflow:auto;
 }
 
-.cart.open{
+.cartBox.open{
     left:0;
 }
 
@@ -97,12 +115,22 @@ button{
     font-size:14px;
 }
 
-.orderBtn{
+/* طلب */
+input{
     width:100%;
     padding:10px;
+    margin:5px 0;
+    border:1px solid #ddd;
+    border-radius:10px;
+}
+
+.orderBtn{
+    width:100%;
+    padding:12px;
     background:#25D366;
     color:white;
     border:0;
+    border-radius:10px;
     margin-top:10px;
 }
 </style>
@@ -111,19 +139,31 @@ button{
 <body>
 
 <div class="header">
-<div>STORE</div>
-<div class="cartBtn" onclick="toggleCart()">🛒 <span id="count">0</span></div>
+<div>🛍️ Elegant Store</div>
+<div onclick="toggleCart()">🛒 <span id="count">0</span></div>
 </div>
 
-<div class="grid" id="grid"></div>
+<div class="cart">السلة</div>
+
+<div class="container">
+
+<div class="products" id="products"></div>
+
+</div>
 
 <!-- السلة -->
-<div class="cart" id="cart">
+<div class="cartBox" id="cartBox">
 
 <h3>🛒 السلة</h3>
 <div id="items"></div>
 
-<button class="orderBtn" onclick="send()">اطلب الآن</button>
+<h3>📦 بيانات الطلب</h3>
+
+<input id="name" placeholder="الاسم">
+<input id="phone" placeholder="الرقم">
+<input id="address" placeholder="العنوان">
+
+<button class="orderBtn" onclick="sendOrder()">📲 اطلب الآن</button>
 
 </div>
 
@@ -131,42 +171,43 @@ button{
 
 let cart = [];
 
-/* المنتجات */
+/* منتجات */
 let products = [
 {img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg",price:800},
 {img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg",price:650},
 {img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/5fa57c2d-52c3-4528-b68f-19456893ded0.jpeg",price:780},
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg",price:500},
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/8bef95ba-3966-4361-878d-9fddb981a4b4.jpeg",price:600},
-{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/9214c5b0-4ef3-420b-afcd-add97dab3c98.jpeg",price:700}
+{img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg",price:500}
 ];
 
 function render(){
 
-    let html = "";
+    let html="";
 
     products.forEach((p,i)=>{
         html += `
         <div class="card">
         <img src="${p.img}">
+        <div class="info">
         <div class="price">${p.price} جنيه</div>
-        <button onclick="add(${i})">إضافة</button>
+        </div>
+        <button onclick="add(${i})">إضافة للسلة</button>
         </div>
         `;
     });
 
-    document.getElementById("grid").innerHTML = html;
+    document.getElementById("products").innerHTML = html;
 }
 
 function add(i){
     cart.push(products[i]);
-    document.getElementById("count").innerText = cart.length;
-    updateCart();
+    update();
 }
 
-function updateCart(){
+function update(){
 
-    let html = "";
+    document.getElementById("count").innerText = cart.length;
+
+    let html="";
 
     cart.forEach((c,i)=>{
         html += `<div class="item">${i+1}- ${c.price} جنيه</div>`;
@@ -176,18 +217,24 @@ function updateCart(){
 }
 
 function toggleCart(){
-    document.getElementById("cart").classList.toggle("open");
+    document.getElementById("cartBox").classList.toggle("open");
 }
 
-function send(){
+function sendOrder(){
 
-    let msg = "🛍️ طلب جديد%0A%0A";
+    let name=document.getElementById("name").value;
+    let phone=document.getElementById("phone").value;
+    let address=document.getElementById("address").value;
+
+    let msg="🛍️ طلب جديد%0A%0A";
+
+    msg+="👤 "+name+"%0A📞 "+phone+"%0A📍 "+address+"%0A%0A";
 
     cart.forEach((c,i)=>{
-        msg += (i+1)+"- "+c.price+" جنيه%0A";
+        msg+=(i+1)+"- "+c.price+" جنيه%0A";
     });
 
-    window.open("https://wa.me/201224537445?text=" + encodeURIComponent(msg));
+    window.open("https://wa.me/201224537445?text="+encodeURIComponent(msg));
 }
 
 render();
