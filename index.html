@@ -2,113 +2,91 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>Fatma Store</title>
+<title>Admin Store</title>
 
 <style>
 body{
+    margin:0;
     font-family: Arial;
     direction: rtl;
-    margin:0;
-    background:#f4f4f4;
+    background:#f5f5f5;
 }
 
 /* الهيدر */
 .header{
     background:#111;
     color:white;
-    text-align:center;
     padding:15px;
-    font-size:22px;
-    position:relative;
+    display:flex;
+    justify-content:space-between;
 }
 
-.cart{
-    position:absolute;
-    left:15px;
-    top:15px;
-    background:red;
+/* layout */
+.container{
+    display:flex;
+}
+
+/* لوحة التحكم */
+.admin{
+    width:300px;
+    background:white;
+    padding:15px;
+    height:100vh;
+    box-shadow:2px 0 10px rgba(0,0,0,0.1);
+}
+
+.admin input{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+}
+
+.admin button{
+    width:100%;
+    padding:10px;
+    background:#111;
     color:white;
-    width:28px;
-    height:28px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    border:0;
+    cursor:pointer;
 }
 
-/* المنتجات عمودي */
+/* المنتجات */
 .products{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+    flex:1;
     padding:15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
 }
 
-.product{
+.card{
     background:white;
     border-radius:10px;
     overflow:hidden;
-    box-shadow:0 0 8px rgba(0,0,0,0.1);
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
 }
 
-.product img{
+.card img{
     width:100%;
-    height:250px;
+    height:200px;
     object-fit:cover;
 }
 
-/* السعر */
-.price{
+.info{
     padding:10px;
 }
 
-.old{
-    text-decoration:line-through;
-    color:gray;
-}
-
-.new{
+.price{
     color:green;
     font-weight:bold;
-    font-size:18px;
 }
 
-/* زر الإضافة */
-button{
+button.add{
     width:100%;
-    padding:12px;
+    padding:10px;
     border:0;
     background:#111;
     color:white;
-    font-size:16px;
-    cursor:pointer;
-}
-
-/* فورم الطلب */
-.form{
-    background:white;
-    margin:15px;
-    padding:15px;
-    border-radius:10px;
-}
-
-input, textarea{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
-    border:1px solid #ccc;
-    border-radius:8px;
-}
-
-.orderBtn{
-    width:100%;
-    padding:12px;
-    background:#25D366;
-    color:white;
-    border:0;
-    font-size:18px;
-    cursor:pointer;
-    border-radius:8px;
 }
 </style>
 
@@ -117,106 +95,105 @@ input, textarea{
 <body>
 
 <div class="header">
-🛍️ Fatma Store
-<div class="cart" id="cartCount">0</div>
+<div>🛍️ Admin Store</div>
+<div>لوحة التحكم</div>
+</div>
+
+<div class="container">
+
+<!-- لوحة التحكم -->
+<div class="admin">
+
+<h3>➕ إضافة منتج</h3>
+
+<input id="name" placeholder="اسم المنتج">
+<input id="price" placeholder="السعر">
+<input id="img" placeholder="رابط الصورة">
+
+<button onclick="addProduct()">إضافة</button>
+
+<hr>
+
+<h3>🛒 السلة</h3>
+<div id="cartBox"></div>
+
+<button onclick="sendOrder()" style="background:#25D366;margin-top:10px;">
+📲 إرسال الطلب
+</button>
+
 </div>
 
 <!-- المنتجات -->
-
-<div class="products">
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg">
-<div class="price">
-<div class="old">1000 جنيه</div>
-<div class="new">800 جنيه (بينك)</div>
-</div>
-<button onclick="add('طقم بينك',800)">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg">
-<div class="price">
-<div class="old">1000 جنيه</div>
-<div class="new">750 جنيه (أزرق)</div>
-</div>
-<button onclick="add('طقم أزرق',750)">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/5fa57c2d-52c3-4528-b68f-19456893ded0.jpeg">
-<div class="price">
-<div class="old">900 جنيه</div>
-<div class="new">780 جنيه</div>
-</div>
-<button onclick="add('طقم مودرن',780)">أضف للسلة</button>
-</div>
-
-<div class="product">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg">
-<div class="price">
-<div class="old">600 جنيه</div>
-<div class="new">500 جنيه</div>
-</div>
-<button onclick="add('منتج 500',500)">أضف للسلة</button>
-</div>
-
-</div>
-
-<!-- فورم الطلب -->
-
-<div class="form">
-
-<h3>🛍️ طلب جديد</h3>
-
-<input type="text" id="name" placeholder="👤 الاسم">
-<input type="text" id="phone" placeholder="📞 الرقم">
-<input type="text" id="address" placeholder="📍 العنوان">
-<textarea id="note" placeholder="📦 ملاحظات (اختياري)"></textarea>
-
-<button class="orderBtn" onclick="sendOrder()">
-📲 اطلب الأوردر
-</button>
+<div class="products" id="products"></div>
 
 </div>
 
 <script>
 
+let products = [];
 let cart = [];
 
-function add(name, price){
-    cart.push({name, price});
-    document.getElementById("cartCount").innerText = cart.length;
-    alert("تمت الإضافة للسلة 🛒");
-}
-
-function sendOrder(){
+/* إضافة منتج من الأدمن */
+function addProduct(){
 
     let name = document.getElementById("name").value;
-    let phone = document.getElementById("phone").value;
-    let address = document.getElementById("address").value;
-    let note = document.getElementById("note").value;
+    let price = document.getElementById("price").value;
+    let img = document.getElementById("img").value;
 
-    if(cart.length === 0){
-        alert("السلة فاضية 🛒");
-        return;
-    }
+    products.push({name, price, img});
+
+    render();
+}
+
+/* عرض المنتجات */
+function render(){
+
+    let html = "";
+
+    products.forEach((p,i)=>{
+        html += `
+        <div class="card">
+        <img src="${p.img}">
+        <div class="info">
+        <p>${p.name}</p>
+        <div class="price">${p.price} جنيه</div>
+        </div>
+        <button class="add" onclick="addToCart(${i})">إضافة للسلة</button>
+        </div>
+        `;
+    });
+
+    document.getElementById("products").innerHTML = html;
+}
+
+/* إضافة للسلة */
+function addToCart(i){
+    cart.push(products[i]);
+    updateCart();
+}
+
+/* عرض السلة */
+function updateCart(){
+
+    let html = "";
+
+    cart.forEach((c,i)=>{
+        html += `<div>${i+1}- ${c.name} ${c.price} جنيه</div>`;
+    });
+
+    document.getElementById("cartBox").innerHTML = html;
+}
+
+/* إرسال واتساب */
+function sendOrder(){
 
     let msg = "🛍️ طلب جديد%0A%0A";
 
-    msg += "👤 الاسم: " + name + "%0A";
-    msg += "📞 الرقم: " + phone + "%0A";
-    msg += "📍 العنوان: " + address + "%0A%0A";
-
-    msg += "📦 المنتجات:%0A";
-
-    cart.forEach((item,i)=>{
-        msg += (i+1) + "- " + item.name + " - " + item.price + " جنيه%0A";
+    cart.forEach((c,i)=>{
+        msg += (i+1)+"- "+c.name+" "+c.price+" جنيه%0A";
     });
 
-    msg += "%0A📝 ملاحظات: " + note;
-
-    window.open("https://wa.me/201224537445?text=" + msg);
+    window.open("https://wa.me/201224537445?text=" + encodeURIComponent(msg));
 }
 
 </script>
