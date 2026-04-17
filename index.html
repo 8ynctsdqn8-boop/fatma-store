@@ -1,146 +1,214 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>فاطمة الزهراء للمفروشات</title>
+<title>Fatma Store</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f5f7fb;}
+body{
+    font-family: Arial;
+    direction: rtl;
+    margin:0;
+    background:#f4f4f4;
+}
 
+/* Header */
 .header{
-background:linear-gradient(135deg,#6A11CB,#2575FC);
-color:white;
-text-align:center;
-padding:20px;
-position:sticky;
-top:0;
+    background:#111;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    position:relative;
 }
 
-/* شريط عرض */
-.offer{
-background:#E74C3C;
-color:white;
-text-align:center;
-padding:8px;
-font-size:14px;
+.cart-count{
+    position:absolute;
+    left:15px;
+    top:15px;
+    background:red;
+    color:white;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:14px;
 }
 
-/* زر واتساب ثابت */
-.whatsapp-fixed{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-color:white;
-padding:12px 15px;
-border-radius:50px;
-font-size:18px;
-text-decoration:none;
+/* Order info */
+.info{
+    background:white;
+    margin:15px;
+    padding:15px;
+    border-radius:10px;
+    line-height:1.8;
 }
 
-/* المنتجات */
-.container{
-max-width:1000px;
-margin:auto;
-padding:20px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-}
-
-.card{
-background:white;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.card img{
-width:100%;
-height:200px;
-object-fit:cover;
-}
-
-.price{color:#E74C3C;font-weight:bold;margin:10px;}
-
-.old-price{
-text-decoration:line-through;
-color:#999;
-font-size:14px;
-margin-right:5px;
-}
-
+/* Button */
 .btn{
-margin:10px;
-padding:10px;
-background:#2575FC;
-color:white;
-border:none;
-border-radius:10px;
-width:90%;
-font-weight:bold;
+    display:block;
+    margin:10px 15px;
+    padding:12px;
+    text-align:center;
+    background:#25D366;
+    color:white;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* Products */
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+    padding:15px;
+}
+
+.product{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
+}
+
+.product img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.product button{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#111;
+    color:white;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.product button:hover{
+    background:#333;
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="offer">
-🔥 عرض اليوم: خصم 20% + شحن مجاني 🔥
-</div>
-
 <div class="header">
-🛏️ فاطمة الزهراء للمفروشات
+🛍️ Fatma Store
+<div class="cart-count" id="cartCount">0</div>
 </div>
 
-<div class="container">
-
-<div class="card">
-<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg">
-<h3 style="margin:10px;">طقم ملاية فاخر</h3>
-
-<p class="price">
-<span class="old-price">800</span>
-650 جنيه
-</p>
-
-<button class="btn" onclick="order('طقم ملاية فاخر - 650')">
-اطلب الآن 🔥
-</button>
+<div class="info">
+👤 الاسم: ملك تيمور <br>
+📞 الرقم: 01224537445 <br>
+📍 العنوان: كفر القديم <br>
+📦 المنتج: طقم سرير مودرن - 780
 </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1505691723518-36a5ac3b2d5a">
-<h3 style="margin:10px;">طقم عرايس</h3>
-
-<p class="price">
-<span class="old-price">1100</span>
-900 جنيه
-</p>
-
-<button class="btn" onclick="order('طقم عرايس - 900')">
-اطلب الآن 🔥
-</button>
-</div>
-
-</div>
-
-<!-- زر واتساب ثابت -->
-<a class="whatsapp-fixed" 
-href="https://wa.me/201224537445?text=عايزة%20استفسر" target="_blank">
-💬
+<a class="btn" onclick="sendWhats()">
+📲 إرسال الطلب على واتساب
 </a>
 
-<script>
-function order(product){
-let msg =
-"🛍️ طلب جديد%0A%0A" +
-"📦 المنتج: " + product + "%0A" +
-"🔥 من عرض اليوم";
+<div class="products">
 
-window.open("https://wa.me/201224537445?text="+msg);
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg">
+<button onclick="add('صورة 1')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg">
+<button onclick="add('صورة 2')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/5fa57c2d-52c3-4528-b68f-19456893ded0.jpeg">
+<button onclick="add('صورة 3')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/72b7b607-5592-4a6a-9d38-c9445a0dbf43.jpeg">
+<button onclick="add('صورة 4')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/8bef95ba-3966-4361-878d-9fddb981a4b4.jpeg">
+<button onclick="add('صورة 5')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/9214c5b0-4ef3-420b-afcd-add97dab3c98.jpeg">
+<button onclick="add('صورة 6')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/b0b1ea36-8870-400a-90ad-f375c0f79932.jpeg">
+<button onclick="add('صورة 7')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/b1e5dd1d-2a90-4a00-b6dc-634e9f9afb6c.jpeg">
+<button onclick="add('صورة 8')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/cff98d82-5bbd-4d56-8c10-3951e2bf021b.jpeg">
+<button onclick="add('صورة 9')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/d3efe0b6-b2a7-49ed-a7ff-0de8bef117d0.jpeg">
+<button onclick="add('صورة 10')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/e9056bf0-1793-4c13-9dde-2063fcb5285f.jpeg">
+<button onclick="add('صورة 11')">أضف للسلة</button>
+</div>
+
+<div class="product">
+<img src="https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/f5b749ef-6e16-4271-b440-21d275da9aa8.jpeg">
+<button onclick="add('صورة 12')">أضف للسلة</button>
+</div>
+
+</div>
+
+<script>
+
+let cart = [];
+
+function add(item){
+    cart.push(item);
+    document.getElementById("cartCount").innerText = cart.length;
+    alert("تمت الإضافة للسلة 🛒");
 }
+
+function sendWhats(){
+    let msg = "🛍️ طلب جديد%0A%0A";
+    msg += "👤 الاسم: ملك تيمور%0A";
+    msg += "📞 الرقم: 01224537445%0A";
+    msg += "📍 العنوان: كفر القديم%0A";
+    msg += "📦 المنتجات:%0A";
+
+    cart.forEach((item,i)=>{
+        msg += (i+1) + "- " + item + "%0A";
+    });
+
+    if(cart.length === 0){
+        alert("السلة فاضية 🛒");
+        return;
+    }
+
+    window.open("https://wa.me/201224537445?text=" + msg);
+}
+
 </script>
 
 </body>
