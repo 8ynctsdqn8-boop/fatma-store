@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Product</title>
+
+<style>
+body{margin:0;font-family:Arial;direction:rtl}
+img{width:100%;height:350px;object-fit:cover}
+.container{padding:15px}
+.old{text-decoration:line-through;color:gray}
+.new{color:red;font-size:20px;font-weight:bold}
+button{width:100%;padding:12px;background:black;color:white;border:0}
+</style>
+</head>
+
+<body>
+
+<img id="img">
+
+<div class="container">
+<h2 id="name"></h2>
+<div class="old" id="old"></div>
+<div class="new" id="price"></div>
+
+<button type="button" onclick="add()">أضف للسلة 🛒</button>
+</div>
+
+<script>
+
+let products = {
+1:{
+img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/0879101f-bb8a-4f82-a55e-ac3d2f732634.jpeg",
+name:"طقم سرير",
+old:1000,
+price:800
+},
+2:{
+img:"https://raw.githubusercontent.com/8ynctsdqn8-boop/fatma-store/main/340e5cab-4e21-41c9-8c52-d812829ebf2c.jpeg",
+name:"ملاية شيك",
+old:900,
+price:600
+}
+};
+
+let id = new URLSearchParams(window.location.search).get("id");
+let p = products[id];
+
+document.getElementById("img").src = p.img;
+document.getElementById("name").innerText = p.name;
+document.getElementById("old").innerText = p.old;
+document.getElementById("price").innerText = p.price;
+
+function add(){
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+cart.push(id);
+localStorage.setItem("cart", JSON.stringify(cart));
+alert("تمت الإضافة للسلة 🛒");
+}
+
+</script>
+
+</body>
+</html>
