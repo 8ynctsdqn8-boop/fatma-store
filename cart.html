@@ -5,58 +5,34 @@
 <title>Cart</title>
 
 <style>
-body{font-family:Arial;direction:rtl;padding:15px;}
-.item{border-bottom:1px solid #eee;padding:10px 0;}
-.total{font-weight:bold;margin-top:10px;}
-input{width:100%;padding:10px;margin:5px 0;}
-button{width:100%;padding:12px;background:#25D366;color:white;border:0;}
+body{font-family:Arial;direction:rtl;padding:15px}
+.item{border-bottom:1px solid #eee;padding:10px 0}
+button{width:100%;padding:12px;background:#25D366;color:white;border:0}
 </style>
 </head>
 
 <body>
 
 <h2>🛒 السلة</h2>
+
 <div id="items"></div>
-
-<div class="total">الإجمالي: <span id="total"></span></div>
-
-<input id="phone" placeholder="📞 رقم التليفون">
-<input id="address" placeholder="📍 العنوان">
 
 <button onclick="order()">📲 اطلب الآن</button>
 
 <script>
 
-let products=JSON.parse(localStorage.getItem("products"));
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 let html="";
-let total=0;
 
-cart.forEach(id=>{
-let p=products.find(x=>x.id==id);
-total+=p.price;
-html+=`<div class="item">${p.name} - ${p.price} جنيه</div>`;
+cart.forEach((item,i)=>{
+html+=`<div class="item">${i+1}- منتج</div>`;
 });
 
 document.getElementById("items").innerHTML=html;
-document.getElementById("total").innerText=total;
 
 function order(){
-
-let phone=document.getElementById("phone").value;
-let address=document.getElementById("address").value;
-
-let msg="🛍️ طلب جديد\n\n";
-
-cart.forEach((id,i)=>{
-let p=products.find(x=>x.id==id);
-msg+=(i+1)+"- "+p.name+" "+p.price+" جنيه\n";
-});
-
-msg+="\n📞 "+phone+"\n📍 "+address;
-
-window.open("https://wa.me/201224537445?text="+encodeURIComponent(msg));
+alert("تم إرسال الطلب ✔");
 }
 
 </script>
